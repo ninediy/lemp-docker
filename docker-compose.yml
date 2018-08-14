@@ -1,0 +1,60 @@
+version: '2'
+services:
+  db:
+    image: mariadb:10.1
+    container_name: lemp-mariadb
+    restart: always
+    volumes:
+      - ./mysql/initdb/:/docker-entrypoint-initdb.d
+      - ./mysql/data/:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=lemp_db
+      - MYSQL_USER=lemp
+      - MYSQL_PASSWORD=lemp
+  php:
+    build: ./php/ # build from Dockerfile
+    container_name: lemp-php-fpm
+    restart: always
+    volumes:
+      - ./www/:/var/www/html
+    expose:
+      - "9000"
+  nginx:
+    image: nginx:alpine
+    container_name: lemp-nginx
+    restart: always
+    volumes:
+      - ./nginx/conf/nginx.conf:/etc/nginx/conf/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    volumes_from:
+      - php
+    ports:
+      - "80:80"
+  redis:
+    image: redis:latest
+    container_name: lemp-redis
+    restart: always
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379      
+    ports:
+      - 8081:8081
+  pma:
+    image: phpmyadmin/phpmyadmin
+    container_name: lemp-phpmyadmin
+    restart: always
+    ports:
+      - "8000:80"
+  adminer:
+    image: adminer
+    container_name: lemp-adminer
+    restart: always
+    volumes: 
+      - ./adminer/adminer.css:/var/www/html/adminer.css
+    ports:
+      - 8080:8080

@@ -14,7 +14,7 @@
 Install Docker 
 - (MacOS use Docker for mac)
 - (Window 10 pro use Docker for window)
-- (Window 10 Home use Docker tollbox)
+- (Window 10 Home use Docker toolbox)
 ### Step 2 : git clone
 ```
 $ git clone https://github.com/ninediy/lemp-docker.git

@@ -25,12 +25,18 @@ $ cd lemp-docker
 $ docker-compose up -d
 ```
 ---
+## Localhost
+> http://127.0.0.1
+![Nginx](_images/80.png)
 ## Redis commander
 > http://127.0.0.1:8081
+![Redis commander](_images/8081.png)
 ## PMA
 > http://127.0.0.1:8000
+![phpmyadmin](_images/8000.png)
 ## Adminer
 > http://127.0.0.1:8080
+![Adminer](_images/8080.png)
 ---
 ## Other
  - stop docker-compose
